@@ -1,0 +1,35 @@
+.btn-click {
+    display: none;
+    
+}
+
+.outside {
+    display: block;
+    width: 3rem;
+    height: 1rem;
+    background-color: #666;
+    border-radius: 0.2rem;
+    padding: 0.2rem;
+}
+
+.inside {
+    display: inline-block;
+    width: 33%;    
+    height: 100%;
+    border-radius: inherit;
+    background-color: #eee;
+    transition: all ease-in-out 0.5s;   
+}
+
+p {
+    display: none;
+}
+
+.btn-click:checked ~ .outside>.inside{
+    transform: translateX(200%);
+}
+
+#btn-1:checked ~ p {
+    display: block;
+}
+
