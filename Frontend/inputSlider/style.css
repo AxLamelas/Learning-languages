@@ -1,0 +1,36 @@
+html, head, body {
+    margin:0;
+    padding:0;
+    font-size: 30px;
+
+    width: 100vw;
+    height: 100vh;
+    
+
+}
+body{
+    box-sizing: border-box;
+    padding: 0 0 0 50vw;
+}
+
+
+
+.outside {
+    display: block;
+    position: relative;
+    width: 10rem;
+    height: 1rem;
+    border-radius: 0.3rem;
+    background-color: #666;
+}
+
+.inside {
+    position: absolute;
+    display: block;
+    background-color: #fff;
+    border-radius: inherit;
+    width: 10%;
+    height: 80%;
+    top: 50%;
+    transform: translateY(-50%);
+}

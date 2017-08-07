@@ -1,0 +1,36 @@
+html, body, div {
+    margin:0;
+    padding: 0;
+    font-size: 20px;
+}
+
+
+
+
+
+.outside {
+    width: 2rem;
+    height: 1rem;
+    display: block;
+    margin: 0 auto;
+    margin-top: 1rem;
+    background-color: #666;
+    border-radius: 0.2em;
+    position: relative;
+    padding: 0.1rem;
+}
+
+.inside {
+    display: inline-block;
+    position: absolute;
+    width: calc(100%/3);
+    height: 0.8rem;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0.1rem;    
+    border-radius: inherit;
+    transition: all 0.5s;    
+    background-color: #fff;
+
+}
+
