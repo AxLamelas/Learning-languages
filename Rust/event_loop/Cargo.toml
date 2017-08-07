@@ -1,0 +1,7 @@
+[package]
+name = "event_loop"
+version = "0.1.0"
+authors = ["AxLamelas <afonso.lamelas5@gmail.com>"]
+
+[dependencies]
+num = "*"
