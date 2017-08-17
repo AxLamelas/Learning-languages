@@ -1,6 +1,6 @@
-(ns experiment.core-test
+(ns genetic.core-test
   (:require [clojure.test :refer :all]
-            [experiment.core :refer :all]))
+            [genetic.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

@@ -1,6 +1,6 @@
-(ns exp.core-test
+(ns plotting.core-test
   (:require [clojure.test :refer :all]
-            [exp.core :refer :all]))
+            [plotting.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."
