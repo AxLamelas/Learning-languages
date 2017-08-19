@@ -1,45 +1,68 @@
 (ns genetic.core)
 
 
-(def pop (atom []))
 (def goal "Learning clojure!")
+(def sizePop 200)
+(def mRate 0.1)
+
+
 (def sizeEle (count goal))
 (def goalVec (map int (seq (char-array goal))))
-(def sizePop 10)
 
-(defn genPop []
-  (reset! pop [])
-  (dotimes [n sizePop]  
-    (swap! pop conj (repeatedly  sizeEle #(+ 32 (rand-int 94))))))
+(defn genEle [sizeEle s]
+    (if (= sizeEle (count s))
+      s
+      (recur sizeEle (conj s  (+ 32 (rand-int 94))))))
 
+(defn genPop [sizePop sizeEle]
+  (map #(genEle sizeEle %) (repeat sizePop [])))
+    
 (defn dist [a b]
   (* (- a b) (- a b)))
 
-(defn fitness [ele]
-  (reduce + (map dist ele goalVec)))
+(defn fitness [ele goalVec]
+  (reduce + (map dist goalVec ele)))
 
-(defn rank []
-  (let [scores (atom [])]
-    (dotimes [n sizePop]
-      (swap! scores conj  [(fitness (get @pop n)) (get @pop n)]))
-    (into (sorted-map) @scores)))
+(defn rank [pop goalVec]
+  (into (sorted-map) (map vector (map fitness pop (repeat (count pop) goalVec)) pop)))
 
-(defn selPerc []
-  (let [ranking (rank) scores (map key ranking) values (vals ranking) max (reduce + scores)]
-    (into (sorted-map) (map vector (map / scores (repeat (count scores) max)) values))))
+(defn select [ranking]
+  (nth (vals ranking) (apply min (map rand-int (repeat 5  (count ranking))))))
+    
 
-(defn nextGen []
+(defn mutate [c mutate?]
+  (if mutate?
+    (+ (rand-int 94) 32)
+    c))
+
+(defn mutateVec [v mutVec]
+  (map mutate v mutVec))
+
+(defn genMutVec [mRate sizeEle]
+  (map (fn [mRate] (>= mRate (rand 1))) (repeat sizeEle mRate)))
+
+(defn repro [v1 v2 mRate]
+  (let [splitPoint (int (/ (count v1) 2)) v (concat (subvec v1 0 splitPoint) (subvec v2 splitPoint))]
+    (vec (map mutate v (genMutVec mRate (count v))))))
+    
+
   
-  (let [a (rand 1) b (rand 1) popPer (selPerc) per (map key popPer) perSumed (atom [])]
-    (reset! pop [])
-    (dotimes [n sizePop]
-      (dotimes [i (sizePop)]
-        (swap! perSumed conj (reduce + (subvec per 0 (+ i 1)))))
-      (let [eleA (get values (- (first (filter neg? (map - (repeat sizePop a) @perSumed))) 1)) eleB (get values (- (first (filter neg? (map - (repeat sizePop b) @perSumed))) 1))]
-        (swap! pop conj (str (subs eleA 0 (int (/ sizeEle 2))) (subs eleB (+ 1 (int (/ sizeEle 2)))))))
-    )))
+(defn nextGen [pop goalVec mRate]
+  (let [ranking (rank pop goalVec) sizePop (count pop) p1 (vec (map select (repeat sizePop ranking))) p2 (vec (map select (repeat sizePop ranking)))]
+    (map repro p1 p2 (repeat sizePop mRate)))))
+
+(defn inside? [vec ele]
+  (>= (count (filter (fn [x] (= x ele)) vec)) 1))
+
+(defn evolve [pop goalVec mRate generation]
+  (let [ranking (rank pop goalVec)]
+    (println "Best string: " (nth (vals ranking) (apply min (keys ranking)))))
+  (println "Generation: " generation "\n")  
+  (if (inside? pop goalVec)
+    (println "Finished evolving: " (apply str(map char (nth pop (.indexOf pop goalVec)))))
+  (recur (nextGen pop goalVec mRate) goalVec mRate (inc generation))))
 
 
 
-(genPop 10 2)
-(println @pop)
+
+(evolve (genPop sizePop sizeEle) goalVec mRate 0)
