@@ -2,7 +2,7 @@
 
 version       = "0.1.0"
 author        = "AxLamelas"
-description   = "Testing package"
+description   = "Arbitrary rank tensor implementation"
 license       = "MIT"
 
 # Dependencies

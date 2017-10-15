@@ -1,9 +1,0 @@
-{"compile":[
-["E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\teste_teste.c", "gcc.exe -c  -w -mno-ms-bitfields  -IE:\\Programa\u00E7\u00E3o\\nim\\Nim\\lib -o E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\teste_teste.o E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\teste_teste.c"],
-],
-"link":[
-"E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\teste_teste.o",
-"E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\stdlib_system.o"
-],
-"linkcmd": "gcc.exe   -o E:\\Programa\u00E7\u00E3o\\nim\\teste\\teste.exe  E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\teste_teste.o E:\\Programa\u00E7\u00E3o\\nim\\teste\\nimcache\\stdlib_system.o    "
-}
